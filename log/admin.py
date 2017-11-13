@@ -2,34 +2,29 @@ from django.contrib import admin
 
 import log.models
 
+admin.site.register(log.models.Person)
+admin.site.register(log.models.Type)
+admin.site.register(log.models.Group)
+
 
 # class TPerson(log.models.Person):
 #     class Meta:
 #         proxy = True
 
 
-class TemperatureInlines(admin.TabularInline):
-    model = log.models.Temperature
+class ParameterInlines(admin.TabularInline):
+    model = log.models.Parameter
     readonly_fields = ['created_at', 'updated_at']
     extra = 1
 
 
-@admin.register(log.models.LogGroup)
+class NoteInlines(admin.TabularInline):
+    model = log.models.Note
+    readonly_fields = ['created_at', 'updated_at']
+    extra = 0
+
+
+@admin.register(log.models.Event)
 class TemperatureGroupAdmin(admin.ModelAdmin):
-    inlines = [TemperatureInlines, ]
-    readonly_fields = ['created_at', 'updated_at']
-
-
-admin.site.register(log.models.Person)
-
-
-class NosebleedConditionInlines(admin.TabularInline):
-    model = log.models.NosebleedCondition
-    readonly_fields = ['created_at', 'updated_at']
-    extra = 1
-
-
-@admin.register(log.models.Nosebleed)
-class NosebleedAdmin(admin.ModelAdmin):
-    inlines = [NosebleedConditionInlines, ]
+    inlines = [ParameterInlines, ]
     readonly_fields = ['created_at', 'updated_at']
