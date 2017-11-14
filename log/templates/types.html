@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="table table-responsive">
+    {% for type in types %}
+    <tr>
+        <td class="align-middle"><a href="{% url 'log:event-list' subject_pk=subject_pk type_pk=type.pk %}">{{ type }}</a></td>
+        <td class="align-middle">
+            <a href="{% url 'log:create-log' subject_pk=subject_pk type_pk=type.pk %}" class="btn btn-primary">Add</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

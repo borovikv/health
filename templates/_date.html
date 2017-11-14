@@ -1,0 +1,10 @@
+{% load date %}
+{% if date %}
+    {% if date|is_today %}
+        <span class="badge badge-warning">Today</span>
+    {% elif date|is_yesterday %}
+        <span class="badge badge-success">Yesterday</span>
+    {% else %}
+        <span class="badge badge-default">{{ date|date:"Y M D d" }}</span>
+    {% endif %}
+{% endif %}

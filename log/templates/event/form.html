@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load forms %}
+{% load i18n %}
+<h1>{{ type }}</h1>
+
+<form method="{{ method|default:'post' }}" action="{{ action }}" class="form">{% csrf_token %}
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+    {% for field in form.visible_fields %}
+    <div class="{{ field|form_group }}">
+        <label class="form-control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+        {% include '_field_errors.html' %}
+
+        {% add_attrs field class="form-control" placeholder=field.label %}
+
+        <div class="form-text text-muted">{{ field.help_text }}</div>
+    </div>
+
+    {% endfor %}
+
+
+    <table class="table">
+        {% for inline_form in inlines %}
+        <tr>
+            {% for field in inline_form.visible_fields %}
+
+            <td class="{{ field|form_group }}">
+                <label class="form-control-label sr-only" for="id_{{ field.name }}">{{ field.label }}</label>
+                {% include '_field_errors.html' %}
+
+                {% add_attrs field class="form-control" placeholder=field.label %}
+
+                {% if forloop.last %}
+                    {% for hidden in inline_form.hidden_fields %}
+                    {{ hidden }}
+                    {% endfor %}
+
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {{ inlines.management_form }}
+
+    <button type="submit" class="save btn btn-default">Save</button>
+</form>
+{% endblock %}

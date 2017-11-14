@@ -1,0 +1,21 @@
+{% load static %}
+<header class="navbar navbar-light navbar-toggleable-md bd-navbar bg-faded">
+    <nav class="container">
+        <div class="d-flex justify-content-between">
+            <a class="nav-item nav-link navbar-brand" href="/">
+                Observer
+            </a>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bd-main-nav"
+                    aria-controls="bd-main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+        <div class="navbar-collapse collapse" id="bd-main-nav" aria-expanded="false" style="">
+            <ul class="nav navbar-nav">
+                <li class="nav-item active"><a href="{% url 'admin:index' %}" class="nav-link">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+

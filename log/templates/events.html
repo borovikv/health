@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load collections %}
+{% block content %}
+<h1>{{ subject }}: {{ type }}</h1>
+<div class="mb-2">
+    <a href="{% url 'log:create-log' subject_pk=subject.pk type_pk=type.pk %}" class="btn btn-primary">Add</a>
+</div>
+
+
+<table class="table table-responsive">
+    <tr>
+        <th>event time</th>
+        <th>group</th>
+        {% for parameter in parameters %}
+        <th>{{ parameter }}</th>
+        {% endfor %}
+    </tr>
+    {% for event in events %}
+    <tr>
+        <td><a href="{% url 'log:update-log' pk=event.pk %}">{{ event.event_time }}</a></td>
+        <td>{{ event.group|default_if_none:'' }}</td>
+        {% for parameter in parameters %}
+        <td>{{ event.parameters.all|get:parameter }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

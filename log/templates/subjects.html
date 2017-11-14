@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Persons</h1>
+<div class="list-group">
+    {% for subject in subjects %}
+    <a href="{% url 'log:type-list' subject_pk=subject.pk %}" class="list-group-item list-group-item-action">{{ subject }}</a></li>
+    {% endfor %}
+</div>
+{% endblock %}
