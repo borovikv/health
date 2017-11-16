@@ -2,7 +2,7 @@ from django.contrib import admin
 
 import log.models
 
-admin.site.register(log.models.Person)
+admin.site.register(log.models.Subject)
 admin.site.register(log.models.Type)
 admin.site.register(log.models.Group)
 admin.site.register(log.models.ParameterType)

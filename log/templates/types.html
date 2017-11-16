@@ -1,13 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-<table class="table table-responsive">
+<h1>The observed parameters</h1>
+<ul class="list-group">
     {% for type in types %}
-    <tr>
-        <td class="align-middle"><a href="{% url 'log:event-list' subject_pk=subject_pk type_pk=type.pk %}">{{ type }}</a></td>
-        <td class="align-middle">
+    <li class="list-group-item justify-content-between">
+        <h4><a href="{% url 'log:event-list' subject_pk=subject_pk type_pk=type.pk %}">{{ type }}</a></h4>
+
+        {% for group in type.groups.all %}
+        <ul class="list-group d-flex w-100">
+            <li class="list-group-item justify-content-between">
+            <h5 class="mb-1">
+                <a href="{% url 'log:event-list' subject_pk=subject_pk type_pk=type.pk group_pk=group.pk %}">
+                    {{ group }}
+                </a>
+            </h5>
+            <a href="{% url 'log:create-log' subject_pk=subject_pk type_pk=type.pk group_pk=group.pk %}" class="btn btn-primary">Add</a>
+            </li>
+        </ul>
+
+        {% empty %}
             <a href="{% url 'log:create-log' subject_pk=subject_pk type_pk=type.pk %}" class="btn btn-primary">Add</a>
-        </td>
-    </tr>
+        {% endfor %}
+    </li>
     {% endfor %}
-</table>
+</ul>
 {% endblock %}

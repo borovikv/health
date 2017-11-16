@@ -3,7 +3,11 @@
 {% block content %}
 <h1>{{ subject }}: {{ type }}</h1>
 <div class="mb-2">
+    {% if group %}
+    <a href="{% url 'log:create-log' subject_pk=subject.pk type_pk=type.pk group_pk=group.pk %}" class="btn btn-primary">Add</a>
+    {% else %}
     <a href="{% url 'log:create-log' subject_pk=subject.pk type_pk=type.pk %}" class="btn btn-primary">Add</a>
+    {% endif %}
 </div>
 
 
@@ -17,7 +21,7 @@
     </tr>
     {% for event in events %}
     <tr>
-        <td><a href="{% url 'log:update-log' pk=event.pk %}">{{ event.event_time }}</a></td>
+        <td><a href="{% url 'log:update-log' event_pk=event.pk %}">{{ event.event_time }}</a></td>
         <td>{{ event.group|default_if_none:'' }}</td>
         {% for parameter in parameters %}
         <td>{{ event.parameters.all|get:parameter }}</td>

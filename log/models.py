@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Person(models.Model):
+class Subject(models.Model):
     name = models.CharField(max_length=256)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -30,18 +30,19 @@ class Type(models.Model):
 
 
 class Group(models.Model):
-    person = models.ForeignKey(Person, related_name='groups')
+    subject = models.ForeignKey(Subject, related_name='groups')
+    type = models.ForeignKey(Type, related_name='groups')
     description = models.CharField(max_length=256)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.person}: {self.description}: {self.created_at.date()}'
+        return f'{self.description}'
 
 
 class Event(models.Model):
     type = models.ForeignKey(Type, related_name='events')
-    subject = models.ForeignKey(Person, related_name='events')
+    subject = models.ForeignKey(Subject, related_name='events')
     group = models.ForeignKey(Group, null=True, blank=True, related_name='events')
     event_time = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -63,6 +64,7 @@ class Parameter(models.Model):
 
     def __str__(self):
         return str(self.type)
+
 
 class Note(models.Model):
     event = models.ForeignKey(Event, related_name='names')
