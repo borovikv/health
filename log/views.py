@@ -78,7 +78,7 @@ class TypeListView(ListView):
 class EventListView(ListView):
     model = m.Event
     context_object_name = 'events'
-    template_name = 'events.html'
+    template_name = 'event/list.html'
 
     def get_queryset(self):
         query_set = super(EventListView, self).get_queryset().filter(type=self.get_type(),
@@ -123,7 +123,7 @@ class UpdateLog(UpdateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(UpdateView, self).get_context_data(**kwargs)
-        event: m.Type = m.Event.objects.get(pk=self.kwargs['event_pk'])
+        event: m.Type = m.Event.objects.get(pk=self.kwargs['pk'])
         if self.request.POST:
             ctx['form'] = f.EventForm(self.request.POST)
             ctx['inlines'] = parameters_formset(self.request.POST)

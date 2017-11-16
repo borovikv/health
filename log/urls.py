@@ -14,7 +14,7 @@ urlpatterns = [
     url(fr'{subject_type}/events/create$', v.CreateLog.as_view(), name='create-log'),
     url(fr'{subject_type}/{group}/events/create$', v.CreateLog.as_view(), name='create-log'),
 
-    url(r'events/(?P<event_pk>\d+)/update$', v.UpdateLog.as_view(), name='update-log'),
+    url(r'events/(?P<pk>\d+)/update$', v.UpdateLog.as_view(), name='update-log'),
 
     url(fr'{subject}/types$', v.TypeListView.as_view(), name='type-list'),
 
